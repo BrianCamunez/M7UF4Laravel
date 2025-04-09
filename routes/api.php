@@ -2,11 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\TargetaController;
 use App\Http\Controllers\api\StudentController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+ })->middleware('auth:sanctum');
 
 Route::get('/estudiantes', [StudentController::class, 'index']);
 
@@ -20,9 +21,18 @@ Route::put('/estudiantes/{id}', function ($id) {
 });
 
 Route::patch('/estudiantes/{id}', function ($id) {
-    return "Estudiante con ID: $id actualizado parcialmente";
+   return "Estudiante con ID: $id actualizado parcialmente";
 });
 
 Route::delete('/estudiantes/{id}', function ($id) {
     return "Estudiante con ID: $id eliminado";
 });
+
+Route::get('/targeta', [TargetaController::class, 'index']);
+
+
+Route::get('/targeta/{id}', function ($id) {
+    return "Una targeta con ID: $id";
+});
+
+
