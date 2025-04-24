@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('targeta', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            // $table->timestamps();
+            $table->string('nombre')->nullable();
+            $table->string('url')->nullable();
+
         });
     }
 
