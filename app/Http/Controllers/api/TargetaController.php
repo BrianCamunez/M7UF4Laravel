@@ -19,7 +19,7 @@ class TargetaController extends Controller
     {
         $targeta = Targeta::find($id);
         if ($targeta) {
-            return response()->json(['targeta' => $targeta], 200);
+            return response()->json($targeta, 200);
         } else {
             return response()->json(['message' => 'Targeta not found'], 404);
         }
