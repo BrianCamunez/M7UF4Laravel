@@ -61,8 +61,8 @@ class TargetaController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'url' => 'required|url',
-            'nombre' => 'required|string|max:255',
+            'url' => 'url',
+            'nombre' => 'string|max:255',
         ]);
 
         if ($validator->fails()) {
