@@ -12,7 +12,11 @@ class TargetaController extends Controller
     public function index()
     {
         $targetas = Targeta::all();
-       return response()->json(['targeta' => $targetas], 200);
+        if($targetas){
+            return response()->json($targetas, 200);
+        }else{
+            return response()->json(['message' => 'No targetas found'], 404);
+        }
     }
 
     public function show($id)
