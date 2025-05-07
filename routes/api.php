@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\TargetaController;
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsUserAth;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -21,5 +24,21 @@ Route::put('/targeta/{id}', [TargetaController::class, 'update']);
 
 Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
 
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+// Route::get('/targeta', [TargetaController::class, 'index'])
+//Route::get('/targeta/{id}', [TargetaController::class, 'show']);
+
+Route::middleware([IsUserAth::class])->group(function () {
+    Route::post('/targeta', [TargetaController::class, 'store']);
+    Route::post(('logout'), [AuthController::class, 'logout']);
+    Route::get('me', [AuthController::class, 'getUser']);
+});
+
+Route::middleware([IsAdmin::class ])->group(function () {
+    Route::patch('/targeta/{id}', [TargetaController::class, 'updatePartial']);
+    Route::put('/targeta/{id}', [TargetaController::class, 'update']);
+    Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
+});
 
 
