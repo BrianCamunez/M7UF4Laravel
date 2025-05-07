@@ -12,22 +12,22 @@ Route::get('/user', function (Request $request) {
  })->middleware('auth:sanctum');
 
 
-Route::get('/targeta', [TargetaController::class, 'index']);
+// Route::get('/targeta', [TargetaController::class, 'index']);
 
-Route::get('/targeta/{id}', [TargetaController::class, 'show']);
+// Route::get('/targeta/{id}', [TargetaController::class, 'show']);
 
-Route::post('/targeta', [TargetaController::class, 'store']);
+// Route::post('/targeta', [TargetaController::class, 'store']);
 
-Route::patch('/targeta/{id}', [TargetaController::class, 'updatePartial']);
+// Route::patch('/targeta/{id}', [TargetaController::class, 'updatePartial']);
 
-Route::put('/targeta/{id}', [TargetaController::class, 'update']);
+// Route::put('/targeta/{id}', [TargetaController::class, 'update']);
 
-Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
+// Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
 
 Route::get('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-// Route::get('/targeta', [TargetaController::class, 'index'])
-//Route::get('/targeta/{id}', [TargetaController::class, 'show']);
+Route::get('/targeta', [TargetaController::class, 'index']);
+Route::get('/targeta/{id}', [TargetaController::class, 'show']);
 
 Route::middleware([IsUserAth::class])->group(function () {
     Route::post('/targeta', [TargetaController::class, 'store']);
