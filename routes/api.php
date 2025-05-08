@@ -24,8 +24,8 @@ Route::get('/user', function (Request $request) {
 
 // Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 Route::get('/targeta', [TargetaController::class, 'index']);
 Route::get('/targeta/{id}', [TargetaController::class, 'show']);
 

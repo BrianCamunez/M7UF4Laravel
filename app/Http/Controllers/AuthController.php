@@ -65,6 +65,10 @@ class AuthController extends Controller
                 'mesage' => $e->getMessage(),
             ], 500);
         }
+        return response()->json([
+            'token' => $token,
+            'user' => Auth::user(),
+        ], 200);
 
     }
 
