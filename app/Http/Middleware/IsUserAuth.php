@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsUserAuth
+class IsUserAth
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,12 @@ class IsUserAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if(auth('api')->user()){
+            return $next($request);
+        }else{
+            return response()->json([
+                'message' => 'Unauthorized Invalid Token'
+            ], 401);
+        }
     }
 }

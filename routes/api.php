@@ -13,6 +13,8 @@ Route::get('/targeta', [TargetaController::class, 'index']);
 
 Route::get('/targeta/{id}', [TargetaController::class, 'show']);
 
+
+
 Route::post('/targeta', [TargetaController::class, 'store']);
 
 Route::patch('/targeta/{id}', [TargetaController::class, 'updatePartial']);
