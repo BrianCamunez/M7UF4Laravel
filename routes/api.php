@@ -7,9 +7,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUserAth;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
- })->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+//  })->middleware('auth:sanctum');
 
 
 // Route::get('/targeta', [TargetaController::class, 'index']);
