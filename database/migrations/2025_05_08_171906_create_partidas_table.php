@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('partidas', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('duracion')->nullable();
+            $table->integer('clicks')->default(0);
+            $table->integer('puntos')->default(0);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
