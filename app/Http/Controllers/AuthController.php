@@ -111,6 +111,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
+
         if($validator->fails()){
              return response()->json($validator->errors(), 422);
         }
@@ -121,6 +122,19 @@ class AuthController extends Controller
 
         $usuario->update($request->all());
         return response()->json(['usuario' => $usuario], 200);
+
+    }
+
+    public function usuarioConcretoBorrar($id){
+
+        $usuario = User::find($id);
+
+        if(!$usuario){
+            return response()->json(['mensaje' => 'usuario no encontrado'], 404);
+        }
+
+        $usuario->delete();
+        return response()->json(['mensaje' => 'usuario borrado'], 200);
 
     }
 
