@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('targeta', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            // $table->timestamps();
-            $table->string('nombre')->nullable();
-            $table->string('url')->nullable();
-            $table->foreignId('categoria_id')->constrained()->onDelete('set null');
+            $table->string('nombre');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('targeta');
+        Schema::dropIfExists('categorias');
     }
 };
