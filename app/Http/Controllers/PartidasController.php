@@ -35,12 +35,19 @@ class PartidasController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validated = $request->validate([
+            'duracion' => 'required|integer|min:0',
+            'clicks' => 'required|integer|min:0',
+            'puntos' => 'required|integer|min:0',
+        ]);
+
         $partida = Partidas::create([
             'user_id' => Auth::id(),
-            'duracion' => null,
-            'clicks' => 0,
-            'puntos' => 0,
-        ]);
+            'duracion' => $validated['duracion'],
+            'clicks' => $validated['clicks'],
+            'puntos' => $validated['puntos'],   
+        ]);;
 
         return response()->json([
             'mensaje' => 'Partida creada correctamente',
@@ -70,7 +77,7 @@ class PartidasController extends Controller
      */
     public function update(Request $request, Partidas $partidas)
     {
-        if($partidas->user_id != Auth::id()){
+        if ($partidas->user_id != Auth::id()) {
             return response()->json([
                 'mensaje' => 'No tienes permiso para editar esta partida',
             ], 403);
@@ -88,7 +95,6 @@ class PartidasController extends Controller
             'mensaje' => 'Partida actualizada correctamente',
             'datos' => $partidas,
         ], 200);
-
     }
 
     /**
@@ -98,7 +104,7 @@ class PartidasController extends Controller
     {
         $user = Auth::user();
 
-        if($user->id !== $partidas->user_id && $user->role !== 'admin'){
+        if ($user->id !== $partidas->user_id && $user->role !== 'admin') {
             return response()->json([
                 'mensaje' => 'No tienes permiso para eliminar esta partida',
             ], 403);
@@ -109,7 +115,6 @@ class PartidasController extends Controller
         return response()->json([
             'mensaje' => 'Partida eliminada correctamente',
         ], 200);
-
     }
 
     public function getPartidasByUserId($id)
@@ -117,7 +122,7 @@ class PartidasController extends Controller
 
         $user = Auth::user();
 
-        if($user->role !== 'admin'){
+        if ($user->role !== 'admin') {
             return response()->json([
                 'mensaje' => 'No tienes permiso para ver las partidas de otros usuarios',
             ], 403);
@@ -129,7 +134,6 @@ class PartidasController extends Controller
             'mensaje' => 'Partidas obtenidas correctamente',
             'datos' => $partidas,
         ], 200);
-
     }
 
     public function ranking()
@@ -150,7 +154,5 @@ class PartidasController extends Controller
             'mensaje' => 'Ranking obtenido del TOP 5 correctamente',
             'datos' => $ranking,
         ], 200);
-
     }
-
 }

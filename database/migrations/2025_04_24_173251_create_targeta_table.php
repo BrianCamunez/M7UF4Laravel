@@ -16,7 +16,7 @@ return new class extends Migration
             // $table->timestamps();
             $table->string('nombre')->nullable();
             $table->string('url')->nullable();
-            $table->foreignId('categoria_id')->constrained()->onDelete('set null');
+            $table->foreignId('categoria_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 
