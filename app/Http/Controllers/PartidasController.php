@@ -37,16 +37,14 @@ class PartidasController extends Controller
     {
 
         $validated = $request->validate([
-            'duracion' => 'required|integer|min:0',
             'clicks' => 'required|integer|min:0',
             'puntos' => 'required|integer|min:0',
         ]);
 
         $partida = Partidas::create([
             'user_id' => Auth::id(),
-            'duracion' => $validated['duracion'],
             'clicks' => $validated['clicks'],
-            'puntos' => $validated['puntos'],   
+            'puntos' => $validated['puntos'],
         ]);;
 
         return response()->json([
