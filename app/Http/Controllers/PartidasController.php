@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Partidas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PartidasController extends Controller
 {
@@ -22,13 +23,6 @@ class PartidasController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,15 +30,19 @@ class PartidasController extends Controller
     public function store(Request $request)
     {
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'clicks' => 'required|integer|min:0',
             'puntos' => 'required|integer|min:0',
         ]);
 
+            if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
         $partida = Partidas::create([
             'user_id' => Auth::id(),
-            'clicks' => $validated['clicks'],
-            'puntos' => $validated['puntos'],
+            'clicks' => $request['clicks'],
+            'puntos' => $request['puntos'],
         ]);;
 
         return response()->json([
