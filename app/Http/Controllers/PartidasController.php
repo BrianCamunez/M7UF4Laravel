@@ -162,7 +162,7 @@ class PartidasController extends Controller
             ], 403);
         }
 
-        $partidas = Partidas::with('user:id,name,email')->get();
+        $partidas = Partidas::with('user:id')->get();
 
         return response()->json([
             'mensaje' => 'Todas las partidas obtenidas correctamente',
