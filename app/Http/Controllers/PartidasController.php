@@ -35,7 +35,7 @@ class PartidasController extends Controller
             'puntos' => 'required|integer|min:0',
         ]);
 
-            if ($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
@@ -49,7 +49,6 @@ class PartidasController extends Controller
             'mensaje' => 'Partida creada correctamente',
             'datos' => $partida,
         ], 201);
-
     }
 
     /**
@@ -96,17 +95,18 @@ class PartidasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Partidas $partidas)
+    public function destroy($id)
     {
+        $partida = Partidas::findOrFail($id);
         $user = Auth::user();
 
-        if ($user->id !== $partidas->user_id && $user->role !== 'admin') {
+        if ($user->id !== $partida->user_id && $user->role !== 'admin') {
             return response()->json([
                 'mensaje' => 'No tienes permiso para eliminar esta partida',
             ], 403);
         }
 
-        $partidas->delete();
+        $partida->delete();
 
         return response()->json([
             'mensaje' => 'Partida eliminada correctamente',
