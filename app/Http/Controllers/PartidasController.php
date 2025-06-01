@@ -153,12 +153,14 @@ class PartidasController extends Controller
     }
 
     public function adminIndex()
-    {
-        $partidas = Partidas::all();
+{
+    $partidas = Partidas::with('user:id,name,email')
+        ->orderBy('id', 'desc')
+        ->get();
 
-        return response()->json([
-            'mensaje' => 'Partidas obtenidas correctamente',
-            'datos' => $partidas,
-        ], 200);
-    }
+    return response()->json([
+        'mensaje' => 'Partidas obtenidas correctamente',
+        'datos' => $partidas,
+    ], 200);
+}
 }
