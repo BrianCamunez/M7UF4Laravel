@@ -154,18 +154,10 @@ class PartidasController extends Controller
 
     public function adminIndex()
     {
-        $user = Auth::user();
-
-        if ($user->role !== 'admin') {
-            return response()->json([
-                'mensaje' => 'No tienes permiso para ver todas las partidas',
-            ], 403);
-        }
-
-        $partidas = Partidas::with('user:id')->get();
+        $partidas = Partidas::all();
 
         return response()->json([
-            'mensaje' => 'Todas las partidas obtenidas correctamente',
+            'mensaje' => 'Partidas obtenidas correctamente',
             'datos' => $partidas,
         ], 200);
     }
