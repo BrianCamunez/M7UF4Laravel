@@ -30,6 +30,9 @@ Route::middleware([IsAdmin::class ])->group(function () {
     Route::put('/targeta/{id}', [TargetaController::class, 'update']);
     Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
     Route::get('/partidasAdmin', [PartidasController::class, 'adminIndex']);
+    Route::get('/usuarios', [AuthController::class, 'index']);
+    Route::put('/usuarios/{id}', [AuthController::class, 'update']);
+    Route::delete('/usuarios/{id}', [AuthController::class, 'destroy']);
 });
 
 

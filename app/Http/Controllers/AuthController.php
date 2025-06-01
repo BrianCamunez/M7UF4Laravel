@@ -23,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
@@ -47,7 +47,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
@@ -69,7 +69,6 @@ class AuthController extends Controller
             'token' => $token,
             'user' => Auth::user(),
         ], 200);
-
     }
 
     public function getUser()
@@ -78,7 +77,6 @@ class AuthController extends Controller
         return response()->json([
             'user' => $user,
         ], 200);
-
     }
 
     public function logout()
@@ -89,4 +87,40 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function index()
+    {
+        $usuarios = User::all();
+
+        return response()->json([
+            'mensaje' => 'Usuarios obtenidos correctamente',
+            'datos' => $usuarios,
+        ], 200);
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['mensaje' => 'Usuario no encontrado'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|max:255|unique:users,email,' . $user->id,
+            'role' => 'sometimes|in:admin,user',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errores' => $validator->errors()], 422);
+        }
+
+        $user->update($validator->validated());
+
+        return response()->json([
+            'mensaje' => 'Usuario actualizado correctamente',
+            'datos' => $user,
+        ], 200);
+    }
 }
