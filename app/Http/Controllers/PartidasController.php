@@ -151,4 +151,22 @@ class PartidasController extends Controller
             'datos' => $ranking,
         ], 200);
     }
+
+    public function adminIndex()
+    {
+        $user = Auth::user();
+
+        if ($user->role !== 'admin') {
+            return response()->json([
+                'mensaje' => 'No tienes permiso para ver todas las partidas',
+            ], 403);
+        }
+
+        $partidas = Partidas::with('user:id,name,email')->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'mensaje' => 'Todas las partidas obtenidas correctamente',
+            'datos' => $partidas,
+        ], 200);
+    }
 }
