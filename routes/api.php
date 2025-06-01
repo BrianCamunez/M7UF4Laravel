@@ -29,7 +29,7 @@ Route::middleware([IsAdmin::class ])->group(function () {
     Route::patch('/targeta/{id}', [TargetaController::class, 'updatePartial']);
     Route::put('/targeta/{id}', [TargetaController::class, 'update']);
     Route::delete('/targeta/{id}', [TargetaController::class, 'destroy']);
-    Route::get('/partidas', [PartidasController::class, 'indexAdmin']);
+    Route::get('/partidasAdmin', [PartidasController::class, 'indexAdmin']);
 });
 
 
